@@ -1,13 +1,18 @@
+# views.py
+
 from django.shortcuts import render
+from .forms import NameForm
 
-from .forms import UrlForm
+from .models import SaveFile
 
-# Create your views here.
 def index(request):
+    name_form = NameForm(request.POST or None, initial={'name': 'whatever'})
+
     if request.method == 'POST':
-        form = UrlForm(request.POST)
+        if name_form.is_valid():
+            # do something
+            SaveFile().savenewfile(name_form.cleaned_data['name'])
+            pass
 
-    else:
-        form = UrlForm()
+    return render(request, 'polls/index.html', {'name_form': name_form})
 
-    return render(request, 'python_eksamen_qrapp/index.html', {'form': form})

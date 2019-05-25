@@ -1,4 +1,4 @@
 from django import forms
 
-class UrlForm(forms.Form):
-    this_url = forms.CharField(label='text', max_length=100, required=True)
+class NameForm(forms.Form):
+    name = forms.CharField(max_length=255)
